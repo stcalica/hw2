@@ -25,7 +25,7 @@ public class TK {
     public static final TK ELSE    = new TK("TK.ELSE");    // %
     public static final TK ENDIF   = new TK("TK.ENDIF");   // ]
     public static final TK DO      = new TK("TK.DO");      // <
-  
+    public static final TK REF    =  new TK("TK.REF");   
     public static final TK COMMA  = new TK("TK.COMMA");    // ,
     public static final TK LPAREN = new TK("TK.LPAREN");   // (
     public static final TK RPAREN = new TK("TK.RPAREN");   // )
@@ -33,9 +33,9 @@ public class TK {
     public static final TK MINUS  = new TK("TK.MINUS");    // -
     public static final TK TIMES  = new TK("TK.TIMES");    // *
     public static final TK DIVIDE = new TK("TK.DIVIDE");   // /
-
+    public static final TK TILDE = new TK("TK.TILDE");
     public static final TK ID     = new TK("TK.ID");	   // identifier
-
+    public static final TK DO2 = new TK("TK.DO2");
     public static final TK NUM    = new TK("TK.NUM");	   // number
 
     public static final TK EOF    = new TK("TK.EOF");	   // end of file
