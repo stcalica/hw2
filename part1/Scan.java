@@ -92,7 +92,7 @@ public class Scan {
 		    case '=':
 			return ccase1('=', TK.REF);
 		    case '~':
-			return ccase1('~', TK.TILDE);
+			return ccase1('~', TK.SCOPE);
 		    case '>':
 			return ccase1('>', TK.DO2);
 		    case EOF:
