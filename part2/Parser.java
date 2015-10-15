@@ -58,22 +58,33 @@ public class Parser {
 		DO(); 	
 	}
 	else if(is(TK.IF)){
-		IF(); 
+		if_statement(); 
 
 	}
     }
 
+    private  void print(){
+	mustbe(TK.PRINT);
+	expr();
+
+   }
+   private void DO(){
+	mustbe(TK.DO);
+	guarded_command(); 
+	mustbe(TK.DO2);
+  }
+
     private void assignment(){
 	scan(); 
-	mustbe(TK.REF);
+	mustbe(TK.ASSIGN);
 	expr(); 	
 
     }
 
     private void expr(){
 	
-	term() 
-	while(is(TK.PLUS) || is.(TK.MINUS)){
+	term(); 
+	while(is(TK.PLUS) || is(TK.MINUS)){
 		term();		
 	}
 
@@ -113,7 +124,64 @@ public class Parser {
 		}	
 	}	 
 	id();
-   } 
+   }
+  private void if_statement(){
+	mustbe(TK.IF);
+	guarded_command();
+	while(is(TK.ELSEIF)){
+		guarded_command(); 
+	}
+	if(is(TK.ELSE)){
+		block();
+	}
+	mustbe(TK.ENDIF);
+
+
+  } 
+
+  private void guarded_command(){
+	expr(); 
+	mustbe(TK.THEN);
+	block();
+
+   }
+	
+  private void addop(){
+
+	if(is(TK.PLUS)){
+
+		mustbe(TK.PLUS);
+	}
+	else if(is(TK.MINUS)){
+		mustbe(TK.MINUS);
+	}
+
+   }
+
+ private void multop(){
+
+	if(is(TK.TIMES)){
+
+		mustbe(TK.TIMES);
+	}
+
+	else if(is(TK.DIVIDE)){
+		mustbe(TK.DIVIDE);
+	}
+
+}
+
+ private void number(){
+	scan(); 
+ }
+
+private void id(){
+	scan();
+
+}
+
+
+    
 
     // is current token what we want?
     private boolean is(TK tk) {

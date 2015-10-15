@@ -90,7 +90,7 @@ public class Scan {
 		    case '<':
 			return ccase1('<',TK.DO);
 		    case '=':
-			return ccase1('=', TK.REF);
+			return ccase1('=', TK.ASSIGN);
 		    case '~':
 			return ccase1('~', TK.SCOPE);
 		    case '>':

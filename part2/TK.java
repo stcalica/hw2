@@ -25,7 +25,7 @@ public class TK {
     public static final TK ELSE    = new TK("TK.ELSE");    // %
     public static final TK ENDIF   = new TK("TK.ENDIF");   // ]
     public static final TK DO      = new TK("TK.DO");      // <
-    public static final TK REF    =  new TK("TK.REF");     //=
+    public static final TK ASSIGN    =  new TK("TK.ASSIGN");     //=
     public static final TK DO2 = new TK("TK.DO2");         //> 
     public static final TK COMMA  = new TK("TK.COMMA");    // ,
     public static final TK LPAREN = new TK("TK.LPAREN");   // (
