@@ -48,7 +48,72 @@ public class Parser {
     }
 
     private void statement_list() {
+	if(is(TK.ID)){
+		assignment(); 		
+	}
+	else if(is(TK.PRINT)){
+		print(); 
+	}
+	else if(is(TK.DO)){
+		DO(); 	
+	}
+	else if(is(TK.IF)){
+		IF(); 
+
+	}
     }
+
+    private void assignment(){
+	scan(); 
+	mustbe(TK.REF);
+	expr(); 	
+
+    }
+
+    private void expr(){
+	
+	term() 
+	while(is(TK.PLUS) || is.(TK.MINUS)){
+		term();		
+	}
+
+   }
+  
+   private void term(){
+
+	scan();
+	factor();
+	while(is(TK.TIMES) || is(TK.DIVIDE)){
+		factor(); 
+	}
+
+   }
+	
+   private void factor(){
+	if(is(TK.LPAREN)){
+		mustbe(TK.LPAREN);
+		expr(); 
+		mustbe(TK.RPAREN);
+	}
+	else if(is(TK.SCOPE) || is(TK.ID) ){
+		ref_id();
+	}
+	else if(is(TK.NUM)){
+		
+		number();
+	}
+	
+   } 
+
+   private void ref_id(){
+ 	if(is(TK.SCOPE)){
+	     mustbe(TK.SCOPE);
+		if(is(TK.NUM)){
+			number();
+		}	
+	}	 
+	id();
+   } 
 
     // is current token what we want?
     private boolean is(TK tk) {
