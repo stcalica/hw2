@@ -15,8 +15,13 @@ public class Parser {
 	this.scanner = scanner;
 	scan();
 	program();
+	//System.out.println("last toke " + tok.kind);
 	if( tok.kind != TK.EOF )
 	    parse_error("junk after logical end of program");
+	/*while(tok.kind!=TK.EOF){
+		scan();
+		System.out.println(tok.kind + " ");	
+	}*/
     }
 
     private void program() {
@@ -48,19 +53,24 @@ public class Parser {
     }
 
     private void statement_list() {
-	if(is(TK.ID)){
-		assignment(); 		
-	}
-	else if(is(TK.PRINT)){
-		print(); 
-	}
-	else if(is(TK.DO)){
-		DO(); 	
-	}
-	else if(is(TK.IF)){
-		if_statement(); 
+	while(is(TK.ID) || is(TK.PRINT) || is(TK.DO) || is(TK.IF)){
+		//System.out.println("hi\n");
+		if(is(TK.ID) || is(TK.SCOPE)){
+			assignment(); 		
+		}//assignment
+		else if(is(TK.PRINT)){
+			print(); 
+		}//print
+		else if(is(TK.DO)){
+			DO(); 	
+		}//do
+		else if(is(TK.IF)){
+			if_statement(); 
+
+		}//if
 
 	}
+
     }
 
     private  void print(){
@@ -75,16 +85,20 @@ public class Parser {
   }
 
     private void assignment(){
-	scan(); 
+	//scan(); 
+	//mustbe(TK.ID);
+	ref_id();
 	mustbe(TK.ASSIGN);
 	expr(); 	
 
     }
 
     private void expr(){
-	
+	//System.out.print(tok.kind);
 	term(); 
 	while(is(TK.PLUS) || is(TK.MINUS)){
+		//System.out.print(tok.kind);
+		addop();
 		term();		
 	}
 
@@ -92,9 +106,10 @@ public class Parser {
   
    private void term(){
 
-	scan();
+	//scan();
 	factor();
 	while(is(TK.TIMES) || is(TK.DIVIDE)){
+		scan();
 		factor(); 
 	}
 
@@ -129,9 +144,11 @@ public class Parser {
 	mustbe(TK.IF);
 	guarded_command();
 	while(is(TK.ELSEIF)){
+		scan();
 		guarded_command(); 
 	}
 	if(is(TK.ELSE)){
+		scan();
 		block();
 	}
 	mustbe(TK.ENDIF);
@@ -172,12 +189,18 @@ public class Parser {
 }
 
  private void number(){
-	scan(); 
+	//scan(); 
+	//while(is(TK.NUM)){
+		mustbe(TK.NUM);
+	//}
  }
 
 private void id(){
-	scan();
-
+		//scan();
+	//while(is(TK.ID)){
+		mustbe(TK.ID);
+		//scan();
+	//}
 }
 
 
