@@ -53,7 +53,7 @@ public class Parser {
     }
 
     private void statement_list() {
-	while(is(TK.ID) || is(TK.PRINT) || is(TK.DO) || is(TK.IF)){
+	while(is(TK.ID) || is(TK.PRINT) || is(TK.DO) || is(TK.IF) || is(TK.SCOPE)){
 		//System.out.println("hi\n");
 		if(is(TK.ID) || is(TK.SCOPE)){
 			assignment(); 		
