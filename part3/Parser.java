@@ -71,7 +71,6 @@ public class Parser {
 
     private void statement_list() {
 	while(is(TK.ID) || is(TK.PRINT) || is(TK.DO) || is(TK.IF) || is(TK.SCOPE)){
-		//System.out.println("hi\n");
 		if(is(TK.ID) || is(TK.SCOPE)){
 			assignment(); 		
 		}//assignment
@@ -148,7 +147,8 @@ public class Parser {
 
    private void ref_id(){
 	String buffer = "0";
-	String id =""; 
+	String id ="";
+	int lineNumber = tok.lineNumber; 
  	if(is(TK.SCOPE)){
 	     mustbe(TK.SCOPE);
 		if(is(TK.NUM)){
@@ -159,24 +159,25 @@ public class Parser {
 	}
 
 	id = tok.string;
-	System.out.println("id:\t" + id);
 	mustbe(TK.ID);
 	int level = Integer.parseInt(buffer); 
-	System.out.println("level:\t" + level);
 	//we know the scope exsists
-	if(symtbl.size() > level) {
-		for(int i = 0; i < symtbl.get(level).size(); i++){
+	if((symtbl.size()-1) >= level && !(symtbl.get(level).isEmpty())){
+		for(String ele : symtbl.get(level)){
 		//we know the variable(ref id) exsists
-			if(symtbl.get(level).get(i).equals(id)){
-				break;
-			}//symbol exists
-			else{
-				parse_error(id + "is an undeclared  variable on line " + tok.lineNumber);
-			}//symbol doesn't exist
+			if(!ele.contains(id)){
+				System.err.println(id + " is an undeclared variable at line " + lineNumber);
+				System.exit(1);
+			}//symbol is not in table
 
 		}
 	}//scope level exists
+	else{
 
+		System.err.println(id + " is an undeclared variable at line " + lineNumber);
+		System.exit(1);	
+	}
+	 
 	
    }
   private void if_statement(){
@@ -191,7 +192,6 @@ public class Parser {
 		block();
 	}
 	mustbe(TK.ENDIF);
-
 
   } 
 
