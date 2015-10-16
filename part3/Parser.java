@@ -152,7 +152,6 @@ public class Parser {
  	if(is(TK.SCOPE)){
 	     mustbe(TK.SCOPE);
 		if(is(TK.NUM)){
-			System.out.println("bout to be the buffer:\t" + tok.string);
 			buffer = tok.string; 
 			number();
 		}	
@@ -161,22 +160,25 @@ public class Parser {
 	id = tok.string;
 	mustbe(TK.ID);
 	int level = Integer.parseInt(buffer); 
-	//we know the scope exsists
+	//we know the scope exsists and it is not empty
 	if((symtbl.size()-1) >= level && !(symtbl.get(level).isEmpty())){
 		for(String ele : symtbl.get(level)){
-		//we know the variable(ref id) exsists
+			//if element is not in the scope
 			if(!ele.contains(id)){
-				System.err.println(id + " is an undeclared variable at line " + lineNumber);
+				System.err.println(id + " is an undeclared variable on line " + lineNumber);
 				System.exit(1);
-			}//symbol is not in table
+			}//symbol is not in scope
+			//if it does exsist
+			//	check for two copies in the same scope
+			//	also check for variable being used when not exsistent 
 
 		}
 	}//scope level exists
 	else{
 
-		System.err.println(id + " is an undeclared variable at line " + lineNumber);
+		System.err.println(id + " is an undeclared variable on line " + lineNumber);
 		System.exit(1);	
-	}
+	}//scope level doesnt exsist and/or symtbl is empty
 	 
 	
    }
