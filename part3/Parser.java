@@ -160,9 +160,9 @@ public class Parser {
 
 	id = tok.string;
 	System.out.println("id:\t" + id);
-	id();
+	mustbe(TK.ID);
 	int level = Integer.parseInt(buffer); 
-	System.out.println("level:\t" + id);
+	System.out.println("level:\t" + level);
 	//we know the scope exsists
 	if(symtbl.size() > level) {
 		for(int i = 0; i < symtbl.get(level).size(); i++){
@@ -171,8 +171,7 @@ public class Parser {
 				break;
 			}//symbol exists
 			else{
-			
-				parse_error("get your shit together man");
+				parse_error(id + "is an undeclared  variable on line " + tok.lineNumber);
 			}//symbol doesn't exist
 
 		}
